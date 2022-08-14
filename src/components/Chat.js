@@ -4,6 +4,7 @@ import { StarBorderOutlined, InfoOutlined } from "@mui/icons-material";
 import db from "../database/firebase";
 import { Routes, Route, useParams } from "react-router-dom";
 import Message from "./Message";
+import ChatInput from "./ChatInput";
 function Chat() {
   let { roomId } = useParams();
   const [roomDetails, setRoomDetails] = useState(null);
@@ -55,6 +56,7 @@ function Chat() {
           )
           // console.log(message)
         )}
+        <ChatInput channelName={roomDetails?.name} channelId={roomId} />
       </div>
     </div>
   );

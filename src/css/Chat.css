@@ -28,3 +28,6 @@ font-size: 14px;
     margin-left: 10px !important;
  font-size: 18px;
 }
+.chat__messages{
+    margin-bottom: 50px;
+}

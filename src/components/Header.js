@@ -4,12 +4,14 @@ import Avatar from "@mui/material/Avatar";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SearchIcon from "@mui/icons-material/Search";
 import HelpIcon from "@mui/icons-material/Help";
+import { useStateValue } from "../context/StateProvider";
 function Header() {
+  const [{ user }] = useStateValue();
   return (
     <div className="header">
       <div className="header__left">
         {/* avatar for logged in user */}
-        <Avatar src="" alt="akash" />
+        <Avatar src={user?.photoURL} alt={user?.displayName} />
         <AccessTimeIcon />
         {/* time icon */}
       </div>
