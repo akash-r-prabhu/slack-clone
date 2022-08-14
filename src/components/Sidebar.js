@@ -12,7 +12,8 @@ import AppsIcon from "@mui/icons-material/Apps";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import db from "../firebase";
+import AddIcon from "@mui/icons-material/Add";
+import db from "../database/firebase";
 function Sidebar() {
   const [channels, setChannels] = useState([]);
   useEffect(() => {
@@ -47,8 +48,10 @@ function Sidebar() {
       <SidebarOption Icon={ExpandLessIcon} title="Show less" />
       <hr />
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
+      <SidebarOption Icon={AddIcon} title="Add Channel" addChannelOption />
       {/* Connect to db and show all the channels */}
       {/* <SidebarOption/> */}
+
       {channels.map((channel) => (
         <SidebarOption title={channel.name} id={channel.id} />
       ))}
