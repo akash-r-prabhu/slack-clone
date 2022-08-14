@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
+import Welcome from "./components/Welcome";
 import { Routes, Route, Link } from "react-router-dom";
 import { useStateValue } from "./context/StateProvider";
 function App() {
@@ -22,7 +23,7 @@ function App() {
             <Routes>
               <Route path="/room/:roomId" element={<Chat />} />
 
-              <Route path="/" element={<h1>welcome</h1>} />
+              <Route path="/" element={<Welcome/>} />
             </Routes>
           </div>
         </>
