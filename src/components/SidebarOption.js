@@ -1,16 +1,16 @@
 import { IosShare } from "@mui/icons-material";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../css/SidebarOption.css";
 import db from "../database/firebase";
 function SidebarOption({ Icon, title, id, addChannelOption }) {
-  const history = useHistory();
+  let navigate = useNavigate();
   const selectChannel = () => {
     if (id) {
-      history.push(`/room/${id}`);
-
+      // history.push(`/room/${id}`);
+      navigate(`/room/${id}`, { replace: true });
     } else {
-      history.push(`/room`);
+      navigate(`/room`, { replace: true });
     }
   };
   const addChannel = () => {

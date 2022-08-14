@@ -1,16 +1,31 @@
 import React, { useState, useEffect } from "react";
 import "../css/Chat.css";
-import { useParams } from "react-router-dom";
 import { StarBorderOutlined, InfoOutlined } from "@mui/icons-material";
 import db from "../database/firebase";
+import { Routes, Route, useParams } from "react-router-dom";
+import Message from "./Message";
 function Chat() {
-  const { roomId } = useParams();
+  let { roomId } = useParams();
   const [roomDetails, setRoomDetails] = useState(null);
+  const [roomMessages, setRoomMessages] = useState([]);
   useEffect(() => {
     if (roomId) {
       db.collection("rooms")
         .doc(roomId)
-        .onSnapshot((snapshot) => setRoomDetails(snapshot.data()));
+        .onSnapshot((snapshot) => {
+          setRoomDetails(snapshot.data());
+        });
+    }
+  }, [roomId]);
+  useEffect(() => {
+    if (roomId) {
+      db.collection("rooms")
+        .doc(roomId)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+        .onSnapshot((snapshot) => {
+          setRoomMessages(snapshot.docs.map((doc) => doc.data()));
+        });
     }
   }, [roomId]);
   return (
@@ -18,7 +33,7 @@ function Chat() {
       <div className="chat__header">
         <div className="chat__headerLeft">
           <h4 className="chat__channelName">
-            {roomDetails?.name}
+            <strong>#{roomDetails?.name}</strong>
             <StarBorderOutlined />
           </h4>
         </div>
@@ -27,6 +42,19 @@ function Chat() {
             <InfoOutlined /> Details
           </p>
         </div>
+      </div>
+      <div className="chat__messages">
+        {roomMessages.map(
+          (message) => (
+            <Message
+              user={message.user}
+              timestamp={message.timestamp}
+              userImage={message.userImage}
+              message={message.message}
+            />
+          )
+          // console.log(message)
+        )}
       </div>
     </div>
   );
